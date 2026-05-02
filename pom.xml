@@ -1,3 +1,5 @@
+```
+
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -5,21 +7,21 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>spring-boot-sample-actuator</artifactId>
 	<name>Spring Boot Actuator Sample</name>
-	<version>2.0.2</version>
+	<version>3.1.5</version>
 	<description>Spring Boot Actuator Sample</description>
 
 	<packaging>jar</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.2.RELEASE</version>
+		<artifactId>spring-boot-parent</artifactId>
+		<version>3.1.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 
 	<properties>
 
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 
 	</properties>
 
@@ -42,13 +44,12 @@
 		<!-- Runtime -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
+			<artifactId>httpcore-nio</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 
 		<!-- Optional -->
@@ -77,14 +78,15 @@
 	</dependencies>
 	<build>
 		<plugins>
-		 <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.7.2</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.9</version>
+				<version>3.0.0-M5</version>
 				<configuration>
 					<useFile>false</useFile>
 					<includes>
@@ -92,11 +94,10 @@
 					</includes>
 				</configuration>
 			</plugin>
-
-			<plugin>
+            <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.18</version>
+				<version>3.0.0-M5</version>
 				<executions>
 					<execution>
 						<goals>
@@ -114,5 +115,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
