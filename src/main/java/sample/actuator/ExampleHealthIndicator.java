@@ -1,31 +1,57 @@
-/*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+//End of updated file
+
+```java
 package sample.actuator;
 
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.boot.actuate.health.CompositeHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.context.embedded.ServletContextInitializer;
 import org.springframework.stereotype.Component;
 
+import static jakarta.servlet.annotation. \"ServletContextInitializer;
+
 @Component
-public class ExampleHealthIndicator implements HealthIndicator {
+@Singleton
+public class ExampleHealthIndicator implements HealthIndicator, ServletContextInitializer {
+
+	@Resource(name = "testServlet")
+	private ServletContext servletContext;
+
+	@Inject
+	private Health health(HealthCheckRegistry registry) {
+		return Health.up()
+			.withDetail("counter", 42)
+			.withDetail("servlets", servletContext.getServletNames())
+			.build();
+	}
 
 	@Override
 	public Health health() {
-		return Health.up().withDetail("counter", 42).build();
+		return health(getHealthCheckRegistry());
+	}
+
+	@Override
+	public void onStartup(ServletContext servletContext) throws Exception {
+		this.servletContext = servletContext;
+	}
+
+	private HealthCheckRegistry getHealthCheckRegistry() {
+		return (HealthCheckRegistry) servletContext.getAttribute("health");
+	}
+
+	@Override
+	public void onStartup() throws Exception {
+		onStartup(servletContext);
 	}
 
 }
+```
