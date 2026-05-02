@@ -1,31 +1,72 @@
-/*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+```
+
+```java
 package sample.actuator;
 
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.websocket.Conversation;
+import jakarta.websocket.DeploymentException;
+import jakarta.websocket.OnClose;
+import jakarta.websocket.OnError;
+import jakarta.websocket.OnMessage;
+import jakarta.websocket.OnOpen;
+import jakarta.websocket.Session;
+import jakarta.websocket.server.ServerEndpoint;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+import static jakarta.servlet.ServletContextEvent.CONTEXT_DESTROYED;
+
 @Component
-public class ExampleHealthIndicator implements HealthIndicator {
+@ServerEndpoint("/sample")
+public class ExampleWebSocketEndpoint implements ApplicationListener<ServletContextEvent>, HeapSizeIndicator {
 
 	@Override
-	public Health health() {
-		return Health.up().withDetail("counter", 42).build();
+	public void onApplicationEvent(ServletContextEvent event) {
+		String IllegalArgumentException = "Invalid argument";
+		if (event.getServletContext().getAttribute("enableWebSocket") != null) {
+			try {
+				ServletContextEvent webContextEvent = new ServletContextEvent(event.getServletContext(), CONTEXT_DESTROYED);
+				onApplicationEvent(webContextEvent);
+			} catch (Exception e) {
+				throw IllegalArgumentException;
+			}
+		}
+	}
+
+	@OnOpen
+	public void onOpen(Session session) {
+		// implementation
+	}
+
+	@OnMessage
+	public void onMessage(String message, Session session) {
+		// implementation
+	}
+
+	@OnClose
+	public void onClose(Session session) {
+		// implementation
+	}
+
+	@OnError
+	public void onError(Throwable error, Session session) {
+		// implementation
+	}
+
+	@Resource
+	private Conversation conversation;
+
+	@PostConstruct
+	public void init() {
+		// implementation
 	}
 
 }
+
+```
