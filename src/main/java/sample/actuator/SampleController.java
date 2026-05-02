@@ -1,19 +1,7 @@
-/*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+```
+
+```java
 package sample.actuator;
 
 import java.util.Collections;
@@ -21,7 +9,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
@@ -42,6 +30,13 @@ public class SampleController {
 		this.helloWorldService = helloWorldService;
 	}
 
+	/**
+	 * Handles GET requests for the root URL ("/") and returns a JSON object
+	 * containing a "message" key with the value returned by the {@link
+	 * HelloWorldService#getHelloMessage()} method.
+	 *
+	 * @return a JSON object containing a "message" key
+	 */
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String, String> hello() {
@@ -49,6 +44,16 @@ public class SampleController {
 				this.helloWorldService.getHelloMessage());
 	}
 
+	/**
+	 * Handles POST requests for the root URL ("/") and returns a JSON object
+	 * containing "message", "title", and "date" keys. The "message" key contains
+	 * the value of the {@code value} field from the request body, the "title" key
+	 * contains the string "Hello Home", and the "date" key contains the current
+	 * date and time.
+	 *
+	 * @param message an object containing a "value" field
+	 * @return a JSON object containing "message", "title", and "date" keys
+	 */
 	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String, Object> olleh(@Validated Message message) {
@@ -59,6 +64,10 @@ public class SampleController {
 		return model;
 	}
 
+	/**
+	 * Handles GET requests for the "/foo" URL and throws an {@link
+	 * IllegalArgumentException} with the message "Server error".
+	 */
 	@RequestMapping("/foo")
 	@ResponseBody
 	public String foo() {
@@ -70,10 +79,20 @@ public class SampleController {
 		@NotBlank(message = "Message value cannot be empty")
 		private String value;
 
+		/**
+		 * Gets the value of the "value" field in the {@code Message} object.
+		 *
+		 * @return the value of the "value" field
+		 */
 		public String getValue() {
 			return this.value;
 		}
 
+		/**
+		 * Sets the value of the "value" field in the {@code Message} object.
+		 *
+		 * @param value the new value for the "value" field
+		 */
 		public void setValue(String value) {
 			this.value = value;
 		}
@@ -81,3 +100,4 @@ public class SampleController {
 	}
 
 }
+```
