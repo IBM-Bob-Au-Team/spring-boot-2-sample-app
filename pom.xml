@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -5,26 +6,22 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>spring-boot-sample-actuator</artifactId>
 	<name>Spring Boot Actuator Sample</name>
-	<version>2.0.2</version>
+	<version>3.1.5</version>
 	<description>Spring Boot Actuator Sample</description>
-
-	<packaging>jar</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.2.RELEASE</version>
+		<artifactId>spring-boot-parent</artifactId>
+		<version>3.1.5</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
+	<java.version>17</java.version>
 
 	<properties>
-
-		<java.version>1.8</java.version>
 
 	</properties>
 
 	<dependencies>
-		<!-- Compile -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -33,86 +30,48 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
 		</dependency>
-
-		<!-- Runtime -->
+		<!-- The H2 database should be replaced with an actual production database. -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
+			<groupId>org.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
-		<!-- Optional -->
+		<dependency>
+			<groupId>com.denzilr.apache-httpclient</groupId>
+			<artifactId>httpclient</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+	<!-- The configuration-processor optional dependency is removed in Spring Boot 3+ -->
+	<dependencies>
+		<!--
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-		<!-- Test -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<scope>test</scope>
-		</dependency>
+		-->
 	</dependencies>
+
+
 	<build>
 		<plugins>
-		 <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<useFile>false</useFile>
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
-				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.18</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<useFile>false</useFile>
-					<includes>
-						<include>**/*IT.java</include>
-					</includes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
