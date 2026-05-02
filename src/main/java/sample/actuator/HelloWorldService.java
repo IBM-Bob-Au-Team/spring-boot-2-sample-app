@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2016 the original author or authors.
  *
@@ -16,15 +17,214 @@
 
 package sample.actuator;
 
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HelloWorldService {
+public class HelloWorldHealthIndicator implements HealthIndicator {
 
-	
+	private static final String DOCKER_CONTAINER_STATUS = "UP";
 
-	public String getHelloMessage() {
-		return "Spring boot says hello from a Docker container";
+	@Override
+	public Health.Builder health() {
+		return Health.status(Status.UP);
 	}
-
 }
+
+```
+
+```java
+package sample.actuator;
+
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
+import jakarta.annotation.Unrecognized;
