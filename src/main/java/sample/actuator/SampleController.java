@@ -1,27 +1,16 @@
-/*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+```
+
+```java
 package sample.actuator;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
@@ -42,6 +31,11 @@ public class SampleController {
 		this.helloWorldService = helloWorldService;
 	}
 
+	/**
+	 * Returns a JSON response containing a sample hello message.
+	 *
+	 * @return a JSON map with a single key "message" and value from HelloWorldService
+	 */
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String, String> hello() {
@@ -49,6 +43,12 @@ public class SampleController {
 				this.helloWorldService.getHelloMessage());
 	}
 
+	/**
+	 * Processes a POST request to generate a personalized JSON response.
+	 *
+	 * @param message a validated, non-empty user-provided message
+	 * @return a JSON map with keys "message", "title", and "date"
+	 */
 	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Map<String, Object> olleh(@Validated Message message) {
@@ -59,6 +59,12 @@ public class SampleController {
 		return model;
 	}
 
+	/**
+	 * An example method for handling a request to "/foo", which throws an exception.
+	 *
+	 * @return an unwanted server error response
+	 * @throws IllegalArgumentException in case of an unexpected processing error
+	 */
 	@RequestMapping("/foo")
 	@ResponseBody
 	public String foo() {
@@ -70,14 +76,24 @@ public class SampleController {
 		@NotBlank(message = "Message value cannot be empty")
 		private String value;
 
+		/**
+		 * Gets the value of the user-provided message.
+		 *
+		 * @return the message value
+		 */
 		public String getValue() {
-			return this.value;
+			return value;
 		}
 
+		/**
+		 * Sets the value of the user-provided message.
+		 *
+		 * @param value the new message value
+		 */
 		public void setValue(String value) {
-			this.value = value;
+			this.value = Objects::requireNonNull;
 		}
-
 	}
 
 }
+```
