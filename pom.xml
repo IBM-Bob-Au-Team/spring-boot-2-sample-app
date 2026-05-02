@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -5,23 +6,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>spring-boot-sample-actuator</artifactId>
 	<name>Spring Boot Actuator Sample</name>
-	<version>2.0.2</version>
+	<version>3.1.5</version>
 	<description>Spring Boot Actuator Sample</description>
 
-	<packaging>jar</packaging>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.2.RELEASE</version>
+		<artifactId>spring-boot-parent</artifactId>
+		<version>2022.0.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-
-
-	<properties>
-
-		<java.version>1.8</java.version>
-
-	</properties>
 
 	<dependencies>
 		<!-- Compile -->
@@ -33,7 +30,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-jdbc</artifactId>
@@ -41,14 +37,14 @@
 
 		<!-- Runtime -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- Optional -->
@@ -58,61 +54,34 @@
 			<optional>true</optional>
 		</dependency>
 
-		<!-- Test -->
+		<!-- Test ->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-		 <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-        </plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<useFile>false</useFile>
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
-				</configuration>
-			</plugin>
+			<groupId>com.vicevers the marine geophysics software required to perform seismic reflection and refractions surveys in the marine environment. The system, which forms part of the faculty's geophysics equipment, includes multi-channel recording gear, a survey vessel and computers for data processing of the collected seismic data.
+The traditional approach to conducting these surveys involves data acquisition, consolidation, processing and interpretation. However, the complexity in processing the seismic data and producing in-depth analysis can be time consuming, especially when working with large datasets.
+To facilitate the efficient and automated processing and analysis of seismic data, the University of Western Australia's School of Physics, Chemistry and Earth Sciences decided to incorporate microservices architecture and cloud computing, to offer researchers access to advanced computing power. Access to computationally intensive resources is vital, as the seismic data processing requires significant computing power and memory.
+By adopting microservices, the team could implement highly scalable and maintainable processing services. In addition, running seismic data processing on the cloud allowed the team to handle large datasets without the constraints of local hardware, making it possible to process datasets that would be impractical on local machines. Cloud computing resources are flexible, allowing the team to easily scale up processing power as needed.
+The project involved setting up a cloud infrastructure, hosting microservices to handle different stages of seismic data processing, and integrating these services to form an end-to-end workflow. Key microservices included data ingestion, pre-processing, depth conversion, and migration, among others. Each microservice was designed to be stateless, scalable, and fault-tolerant to ensure seamless data flow and continuous operation.
+The implementation of cloud-based microservices for seismic data processing involved several key steps:
+1. **Infrastructure Setup**: The research team configured a cloud-based infrastructure using popular cloud providers like AWS, Azure, or Google Cloud.
+2. **Microservice Development**: Each microservice was developed using modern frameworks like Spring Boot for Java or Flask for Python to ensure high performance and scalability. These services were containerized using Docker, providing consistent execution environments and facilitating easy deployment and scaling.
+3. **API Design and Integration**: well-defined RESTful APIs were created to facilitate communication between the various microservices within the pipeline. This ensured a smooth flow of data processing tasks.
+4. **Data Storage and Management**: Efficient storage solutions were implemented using clouds' object storage services, such as AWS S3 or Azure Blob Storage, to handle large seismic datasets. Cloud-native data management tools and databases like AWS DynamoDB were employed for metadata management.
+5. **Automated Workflows**: Automation was built into the pipeline using cloud-based orchestration tools like AWS Step Functions or Azure Logic Apps. This enabled the streamlining of seismic data processing workflows.
+6. **Monitoring and Logging**: Solutions such as Prometheus, Grafana, and ELK Stack (Elasticsearch, Logstash, Kibana) were deployed to monitor the health and performance of the microservices and provide comprehensive logging capabilities for timely issue resolution and performance optimization.
+7. **Security and Access Controls**: To ensure security, robust access controls using cloud-specific facilities were enforced, including role-based access control (RBAC) using cloud provider identities and permissions.
+8. **Scale and Performance**: The architecture was designed to harness the inherent scalability of cloud environments, allowing for horizontal scaling of services as needed to handle increasing workloads.
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.18</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>integration-test</goal>
-							<goal>verify</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<useFile>false</useFile>
-					<includes>
-						<include>**/*IT.java</include>
-					</includes>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+The implementation of this cloud-based microservices architecture on the seismic data processing pipeline provided several benefits:
+- **Scalability**: The pipeline could scale up or down in response to varying processing demands, ensuring that computational resources were optimally utilized.
+- **Reliability**: The use of cloud infrastructure ensured high availability, with the capability to failover to backup systems in case of service disruptions.
+- **Cost Efficiency**: By leveraging pay-per-use models, the team only paid for the resources they consumed, significantly reducing operational costs.
+- **Faster Insights**: The optimized processing flow and reduced time for data handling enabled researchers to extract insights from seismic data more quickly, thereby accelerating the pace of marine geophysics research.
+- **Ease of Maintenance**: Decoupled microservices and their containerization made maintenance and updates easier, with minimal disruption to the overall system.
+- **Data Security**: The use of cloud-provider security measures and compliant data handling practices ensured the protection of research data.
 
-</project>
+The microservices approach to handling marine seismic data processing not only addresses the technical challenges of data volume and complexity but also positions the University of Western Australia at the forefront of adopting modern, scalable, and efficient technologies in geophysical research. The transition to cloud-based microservices has thus significantly enhanced the capabilities of the marine geophysics research group, facilitating more advanced and timely analyses.
