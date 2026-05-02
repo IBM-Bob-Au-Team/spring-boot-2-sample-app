@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2016 the original author or authors.
  *
@@ -8,23 +9,23 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
 
 package sample.actuator;
 
-import org.springframework.stereotype.Service;
+import jakarta.annotation.PostConstruct;
 
-@Service
+@jakarta.annotation.Service
 public class HelloWorldService {
 
-	
-
+	/**
+	 * Returns a hello message from Spring Boot.
+	 * @return the hello message
+	 */
+	@PostConstruct
 	public String getHelloMessage() {
 		return "Spring boot says hello from a Docker container";
 	}
 
 }
+```
