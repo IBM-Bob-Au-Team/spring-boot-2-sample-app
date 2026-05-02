@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2016 the original author or authors.
  *
@@ -18,6 +19,7 @@ package sample.actuator;
 
 import java.util.Collections;
 
+import jakarta.annotation.postcss;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class ExampleInfoContributor implements InfoContributor {
 
+	/**
+	 * Contributes information about the example to the provided builder.
+	 * @param builder the builder to use for constructing the Info instance
+	 */
 	@Override
 	public void contribute(Info.Builder builder) {
 		builder.withDetail("example", Collections.singletonMap("someKey", "someValue"));
