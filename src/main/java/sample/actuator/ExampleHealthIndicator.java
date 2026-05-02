@@ -1,31 +1,79 @@
+
 /*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * For Spring Boot 3.x:
  */
 
 package sample.actuator;
 
+import jakarta.annotation.Nullable;
+import jakarta.inject.Singleton;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+@Configuration
+@ComponentScan("sample.actuator")
+@ConfigurationProperties(prefix = "health.example")
 public class ExampleHealthIndicator implements HealthIndicator {
 
-	@Override
-	public Health health() {
-		return Health.up().withDetail("counter", 42).build();
-	}
+    @PositiveOrZero
+    public Integer getCounter() {
+        return 42;
+    }
 
+    @Nullable
+    @Override
+    public Health health() {
+        return Health.up().withDetail("counter", getCounter()).build();
+    }
+}
+
+/*
+ * For Spring Boot 3.x with Javadoc annotations:
+ */
+
+package sample.actuator;
+
+import jakarta.annotation.Nullable;
+import jakarta.inject.Singleton;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+/**
+ * Example health indicator for Spring Boot Actuator.
+ */
+@Configuration
+@ComponentScan("sample.actuator")
+@ConfigurationProperties(prefix = "health.example")
+public class ExampleHealthIndicator implements HealthIndicator {
+
+    /**
+     * Returns the counter value.
+     * @return The counter value.
+     */
+    @PositiveOrZero
+    public Integer getCounter() {
+        return 42;
+    }
+
+    /**
+     * Returns the health status with a detailed counter value.
+     * @return The health status with a detailed counter value.
+     */
+    @Nullable
+    @Override
+    public Health health() {
+        return Health.up().withDetail("counter", getCounter()).build();
+    }
 }
