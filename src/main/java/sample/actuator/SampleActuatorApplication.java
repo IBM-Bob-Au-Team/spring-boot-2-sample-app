@@ -1,5 +1,10 @@
+
+```
+
+```java
+
 /*
- * Copyright 2012-2018 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,19 +21,37 @@
 
 package sample.actuator;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication
-@EnableConfigurationProperties(ServiceProperties.class)
+/**
+ * Sample Actuator application demonstrating a basic HealthIndicator.
+ */
+@Configuration
+@SpringBootApplication(exclude = {WebFluxConfiguration.class})
+@Singleton
 public class SampleActuatorApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SampleActuatorApplication.class, args);
+	@Resource
+	private ServiceProperties serviceProperties;
+
+	@PostConstruct
+	public void init() {
+		System.out.println("Service properties: " + serviceProperties);
+	}
+
+	@PreDestroy
+	public void destroy() {
+		System.out.println("Destroy method called.");
 	}
 
 	@Bean
@@ -44,3 +67,5 @@ public class SampleActuatorApplication {
 	}
 
 }
+
+```
