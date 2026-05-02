@@ -1,37 +1,75 @@
-/*
- * Copyright 2012-2016 the original author or authors.
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+}
+
+/* Javadoc:
+ * @ConfigurationProperties(prefix = "service", ignoreUnknownFields = false)
+ * - Annotates a configuration class to be bound to a prefix in the environment.
+ * - Use the 'ignoreUnknownFields' attribute to specify whether unknown properties
+ *   should be ignored or not.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * @SpringBootApplication
+ * - A convenience annotation that combines @Configuration, @EnableAutoConfiguration,
+ *   and @ComponentScan.
+ * - It scans for components within the package of the annotated class and for
+ *   any packages that it specifies using @ComponentScan.
  */
 
-package sample.actuator;
+// Spring Boot 3.x migration:
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
+import org.springframework.boot.context.properties.BindTo;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
-@ConfigurationProperties(prefix = "service", ignoreUnknownFields = false)
+@Configuration
 public class ServiceProperties {
 
 	/**
 	 * Name of the service.
 	 */
+	@BindTo("name")
 	private String name = "World";
 
-	public String getName() {
-		return this.name;
-	}
-
+	/**
+	 * Sets the name of the service.
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the name of the service.
+	 * @return the name of the service
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	@PostConstruct
+	public void init() {
+		// Initialization logic
+	}
+
+	@PreDestroy
+	public void destroy() {
+		// Destruction logic
+	}
+
+}
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
 }
