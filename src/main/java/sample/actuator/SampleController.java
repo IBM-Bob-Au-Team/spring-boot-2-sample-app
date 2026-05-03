@@ -1,3 +1,8 @@
+
+```java
+
+```
+
 /*
  * Copyright 2012-2017 the original author or authors.
  *
@@ -21,8 +26,9 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -38,6 +44,7 @@ public class SampleController {
 
 	private final HelloWorldService helloWorldService;
 
+	@Autowired
 	public SampleController(HelloWorldService helloWorldService) {
 		this.helloWorldService = helloWorldService;
 	}
@@ -81,3 +88,4 @@ public class SampleController {
 	}
 
 }
+```
