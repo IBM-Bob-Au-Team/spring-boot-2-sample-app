@@ -1,13 +1,15 @@
+
 /*
- * Copyright 2012-2016 the original author or authors.
+ * Copyright 2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
+/*
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -16,18 +18,45 @@
 
 package sample.actuator;
 
-import java.util.Collections;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
-@Component
+/**
+ * A sample actuator contributor that contributes an info endpoint.
+ *
+ * @see InfoContributor
+ */
+@Configuration
+@ComponentScan("sample.actuator")
 public class ExampleInfoContributor implements InfoContributor {
 
-	@Override
-	public void contribute(Info.Builder builder) {
-		builder.withDetail("example", Collections.singletonMap("someKey", "someValue"));
-	}
+    /**
+     * Initializes the contributors.
+     */
+    @PostConstruct
+    public void configure() {
+    }
+
+    /**
+     * Called to contribute information to the {@link Info}.
+     *
+     * @param builder the info builder
+     */
+    @Override
+    public void contribute(Info.Builder builder) {
+        builder.withDetail("example", Collections.singletonMap("someKey", "someValue"));
+    }
+
+    /**
+     * Cleans up resources.
+     */
+    @PreDestroy
+    public void cleanup() {
+    }
 
 }
