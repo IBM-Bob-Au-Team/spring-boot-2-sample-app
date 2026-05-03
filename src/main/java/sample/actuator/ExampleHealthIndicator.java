@@ -1,31 +1,51 @@
-/*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+/*
+ * Javadoc:
+ * <p>
+ * This is an example Spring Boot health indicator that returns a healthy status with a custom detail.
+ *
+ * --}}
+```java
 package sample.actuator;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.inject.Inject;
+import jakarta.annotation.concurrent.ThreadSafe;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.stereotype.Component;
+import org Accuracy;
 
 @Component
+@ThreadSafe
 public class ExampleHealthIndicator implements HealthIndicator {
+
+	private final Accuracy accuracy;
+
+	@Inject
+	public ExampleHealthIndicator(Accuracy accuracy) {
+		this.accuracy = accuracy;
+	}
+
+	@PostConstruct
+	public void init() {
+		// Initialization code
+	}
+
+	@PreDestroy
+	public void destroy() {
+		// Cleanup code
+	}
 
 	@Override
 	public Health health() {
-		return Health.up().withDetail("counter", 42).build();
+		return Health.status(accuracy.getStatus()).withDetail("counter", accuracy.getCounter()).build();
 	}
 
+	/**
+	 * This method returns a Spring Boot health status based on the accuracy status and a custom detail.
+	 *
+	 * @return the health status
+	 */
 }
+```
