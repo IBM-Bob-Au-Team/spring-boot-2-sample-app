@@ -1,5 +1,16 @@
+
 /*
- * Copyright 2012-2017 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+/*
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +32,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 import org.springframework.context.annotation.Description;
 import org.springframework.http.MediaType;
@@ -44,6 +55,10 @@ public class SampleController {
 
 	@GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	/**
+	 * Returns a JSON map with a single key-value pair. The key is "message", and
+	 * the value is the hello message obtained from the {@link HelloWorldService}.
+	 */
 	public Map<String, String> hello() {
 		return Collections.singletonMap("message",
 				this.helloWorldService.getHelloMessage());
@@ -51,6 +66,14 @@ public class SampleController {
 
 	@PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
+	/**
+	 * Saves a message and returns a JSON map with three key-value pairs:
+	 * "message" (the saved value), "title" (a fixed string "Hello Home"), and
+	 * "date" (the current date).
+	 *
+	 * @param message the message to be saved, validated with the @NotBlank
+	 * constraint.
+	 */
 	public Map<String, Object> olleh(@Validated Message message) {
 		Map<String, Object> model = new LinkedHashMap<>();
 		model.put("message", message.getValue());
@@ -70,13 +93,23 @@ public class SampleController {
 		@NotBlank(message = "Message value cannot be empty")
 		private String value;
 
+		/**
+		 * Getter for the message value.
+		 *
+		 * @return the message value.
+		 */
 		public String getValue() {
 			return this.value;
 		}
 
+		/**
+		 * Setter for the message value.
+		 *
+		 * @param value the new message value.
+		 */
 		public void setValue(String value) {
 			this.value = value;
-		}
+		 }
 
 	}
 
