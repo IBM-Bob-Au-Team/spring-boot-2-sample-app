@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2018 the original author or authors.
  *
@@ -8,13 +9,13 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
+```java
 package sample.actuator;
+
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.servlet.ServletException;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.health.Health;
@@ -27,10 +28,28 @@ import org.springframework.context.annotation.Bean;
 @EnableConfigurationProperties(ServiceProperties.class)
 public class SampleActuatorApplication {
 
-	public static void main(String[] args) {
+	/**
+	 * Main method to start the Spring Boot application.
+	 *
+	 * @param args Command line arguments
+	 */
+	@PostConstruct
+	public void init(String[] args) {
 		SpringApplication.run(SampleActuatorApplication.class, args);
 	}
 
+	/**
+	 * Pre-destruction method to perform any cleanup tasks.
+	 */
+	@PreDestroy
+	public void destroy() {
+	}
+
+	/**
+	 * Bean method to provide a custom HealthIndicator implementation.
+	 *
+	 * @return An instance of the custom HealthIndicator
+	 */
 	@Bean
 	public HealthIndicator helloHealthIndicator() {
 		return new HealthIndicator() {
@@ -43,4 +62,9 @@ public class SampleActuatorApplication {
 		};
 	}
 
+	@Resource(name = "myResource")
+	private void setMyResource(MyResource myResource) {
+	}
+
 }
+```
