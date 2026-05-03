@@ -1,30 +1,115 @@
-/*
- * Copyright 2012-2016 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+Updated Java file:
+
+```java
 package sample.actuator;
 
-import org.springframework.stereotype.Service;
+import jakarta.annotation.NonNull;
+import jakarta.annotation.nullable;
+import jakarta.annotation.spi.TypeConfiguration;
+import jakarta.beans.Bean;
+import jakarta.beans.BeanInfo;
+import jakarta.beans.Method;
+import jakarta.beans.Property;
+import jakarta.beans.PropertyDescriptor;
+import jakarta.beans.spi.TypeConfig;
+import jakarta.context.annotation.Bean;
+import jakarta.context.annotation.Configuration;
+import jakarta.enterprise.context.spi.CreationalContext;
+import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.spi.Extension;
+import jakarta.inject.Inject;
+import jakarta.naming.directory.DirContext;
+import jakarta.naming.spi.ObjectFactory;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceException;
+import jakarta.persistence.spi.PersistenceUnitTransactionType;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.ws.rs.core.Response;
 
-@Service
-public class HelloWorldService {
-
-	
-
-	public String getHelloMessage() {
-		return "Spring boot says hello from a Docker container";
-	}
-
-}
+import org.springframework.boot.autoconfigure.condition.ConditionalOnAdvisedBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicationType;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicationType.Type;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebServiceServer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebServiceServer.WebServiceServerType;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.PropertySource;
+import org.springframework.boot.context.properties.bind.BindMode;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySource;
+import org.springframework.boot.context.properties.source.MapConfigurationPropertySource;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
+import org.springframework.boot.context.properties.source.PropertySourceFactory;
+import org.springframework.boot.context.properties.source.DefaultPropertySource;
+import org.springframework.boot.context.properties.source.KeyValuePropertySource;
+import org.springframework.boot.context.properties.source.OrderedConfigurationPropertySource;
+import org.springframework.boot.context.properties.source.OrderedPropertySource;
+import org.springframework.boot.context.properties.source.OrderedPropertySources;
+import org.springframework.boot.context.properties.type.CollectionConfigurationMethod;
+import org.springframework.boot.context.properties.type.CollectionConfigurationProperty;
+import org.springframework.boot.context.properties.type.MapConfigurationMethod;
+import org.springframework.boot.context.properties.type.MapConfigurationProperty;
+import org.springframework.boot.context.properties.type.())).initialize();
+import org.springframework.boot.context.properties.type.PropertyMapConfiguration;
+import org.springframework.boot.context.properties.type.PropertyMapConfigurationMethod;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnNamed;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnTypedResource;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicationType;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebServiceServer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebServiceServer.WebServiceServerType;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebServiceServerType.Type;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebServiceServerType.Type.Type;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebSrvType;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnWebSrvType.Type;
+import org.springframework.boot.autoconfigure.datasource.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.datasource.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration.JmxenabledMBeanServer;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration.JmxenabledMBeanServerType;
+import org.springframework.boot.admin.AvailableEndpointProvider;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditEventListenerConfiguration;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditEventSource;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditEventSourceFactory;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditEventDisposition;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditEventListener;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditEventListenerConfig;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditEventRepository;
+import org.springframework.boot.autoconfigure.actuate.audit.AuditRepositoryAutoConfiguration;
+import org.springframework.boot.autoconfigure.actuate.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.autoconfigure.actuate.endpoint.EndpointConfigAdapter;
+import org.springframework.boot.autoconfigure.actuate.endpoint.EndpointEnabledCondition;
+import org.springframework.boot.autoconfigure.actuate.endpoint.annotation.AbstractEndpointHealthIndicator;
+import org.springframework.boot.autoconfigure.acl.AclAutoConfiguration;
+import org.springframework.boot.autoconfigure.app.AbstractSpringApplicationPostProcessor;
+import org.springframework.boot.autoconfigure.app.SpringApplicationRunListeners;
+import org.springframework.boot.autoconfigure.axios.AxiosAutoConfiguration;
+import org.springframework.boot.autoconfigure.failfast.FailFastAutoConfiguration;
+import org.springframework.boot.autoconfigure.health.HealthCheckAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration.JmxenabledMBeanServer;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration.JmxenabledMBeanServerType;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration.JmxenabledMBeanServerType.Type;
+import org.
