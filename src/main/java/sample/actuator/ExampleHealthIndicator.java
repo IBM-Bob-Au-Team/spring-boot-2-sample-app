@@ -1,27 +1,49 @@
-/*
- * Copyright 2012-2017 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+```
+
+```java
 package sample.actuator;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.annotation.WebServlet;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
+/**
+ * A sample health indicator implementation for Spring Boot Actuator.
+ *
+ * This health indicator reports a simple up status with a custom detail.
+ */
 @Component
+@WebServlet(urlPatterns = "/health", name = "health")
 public class ExampleHealthIndicator implements HealthIndicator {
+
+	private final ServletContext servletContext;
+
+	/**
+	 * Constructs a new health indicator with a reference to the servlet context.
+	 *
+	 * @param servletContext the servlet context
+	 */
+	@Inject
+	public ExampleHealthIndicator(@Resource(name = ServletContext.CLASS_NAME) ServletContext servletContext) {
+		this.servletContext = servletContext;
+	}
+
+	@PostConstruct
+	void init() {
+		// Initialization code can be added here.
+	}
+
+	@PreDestroy
+	void shutdown() {
+		// Shutdown code can be added here.
+	}
 
 	@Override
 	public Health health() {
@@ -29,3 +51,4 @@ public class ExampleHealthIndicator implements HealthIndicator {
 	}
 
 }
+```
