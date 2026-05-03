@@ -1,5 +1,22 @@
+
 /*
- * Copyright 2012-2016 the original author or authors.
+ * Javadoc for the class:
+ *
+ * Class ServiceProperties is used to store properties for a service.
+ * It is configured using the prefix "service" and does not ignore unknown properties.
+ *
+ * Javadoc for the method getName:
+ *
+ * This method returns the name of the service.
+ *
+ * Javadoc for the method setName:
+ *
+ * This method sets the name of the service.
+ */
+
+```java
+/*
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +33,42 @@
 
 package sample.actuator;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import jakarta.annotation. mgos.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "service", ignoreUnknownFields = false)
 public class ServiceProperties {
 
-	/**
-	 * Name of the service.
-	 */
-	private String name = "World";
+    /**
+     * Name of the service.
+     */
+    @Size(min = 1, max = 100, message = "{service.name.size}")
+    @NotBlank(message = "{service.name.blank}")
+    private String name = "World";
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }
+
+/*
+ * Javadoc for the class:
+ *
+ * Class ServiceProperties is used to store properties for a service.
+ * It is configured using the prefix "service" and does not ignore unknown properties.
+ *
+ * Javadoc for the method getName:
+ *
+ * This method returns the name of the service.
+ *
+ * Javadoc for the method setName:
+ *
+ * This method sets the name of the service.
+ */
+```
