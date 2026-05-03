@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2016 the original author or authors.
  *
@@ -16,6 +17,7 @@
 
 package sample.actuator;
 
+import jakarta.annotation.Nullable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "service", ignoreUnknownFields = false)
@@ -26,12 +28,31 @@ public class ServiceProperties {
 	 */
 	private String name = "World";
 
-	public String getName() {
-		return this.name;
-	}
-
+	/**
+	 * Sets the name of the service.
+	 *
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns the name of the service.
+	 *
+	 * @return the name
+	 */
+	public String getName() {
+		return this.name;
+	}
+
+	/**
+	 * Returns the name of the service, or {@code null} if not present.
+	 *
+	 * @return the name, or {@code null}
+	 */
+	@Nullable
+	public String getNameNullable() {
+		return this.name;
+	}
 }
