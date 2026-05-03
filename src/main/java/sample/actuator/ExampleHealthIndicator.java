@@ -1,31 +1,66 @@
+
 /*
- * Copyright 2012-2017 the original author or authors.
+ *  Updated Java code:
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * package sample.actuator;
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * import jakarta.annotation.PostConstruct;
+ * import jakarta.annotation.PreDestroy;
+ * import jakarta.annotation.Resource;
+ * import jakarta.inject.Inject;
+ * import jakarta.management.PagingEnumerator;
+ * import jakarta.management.ObjectName;
+ * import jakarta.management.ModelMBeanOperationInfo;
+ * import jakarta.management.JpdaDebuggerConnector;
+ *
+ * import org.springframework.boot.actuate.health.Health;
+ * import org.springframework.boot.actuate.health.HealthIndicator;
+ * import org.springframework.boot.actuate.health.composite.CompositeHealthIndicator;
+ * import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+ * import org.springframework.beans.factory.annotation.Value;
+ * import org.springframework.stereotype.Component;
+ *
+ * @Component
+ * public class ExampleHealthIndicator extends AbstractHealthIndicator {
+ *
+ *     private final int counter;
+ *
+ *     @Inject
+ *     public ExampleHealthIndicator(@Value("${counter:42}") int counter) {
+ *         this.counter = counter;
+ *     }
+ *
+ *     @PostConstruct
+ *     public void init() {
+ *         // initialization code
+ *     }
+ *
+ *     @PreDestroy
+ *     public void destroy() {
+ *         // cleanup code
+ *     }
+ *
+ *     @Override
+ *     protected Health doHealthCheck() {
+ *         return Health.status(getStatus()).withDetail("counter", counter).build();
+ *     }
+ *
+ *     public void setCounter(int counter) {
+ *         this.counter = counter;
+ *     }
+ *
+ *     public int getCounter() {
+ *         return counter;
+ *     }
+ *
+ *     public void setController(Health.Builder builder) {
+ *         builder.status(getStatus()).detail("counter", counter);
+ *     }
+ *
+ *     @Override
+ *     public String getDescription() {
+ *         return "Example health indicator";
+ *     }
+ * }
  */
-
-package sample.actuator;
-
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.stereotype.Component;
-
-@Component
-public class ExampleHealthIndicator implements HealthIndicator {
-
-	@Override
-	public Health health() {
-		return Health.up().withDetail("counter", 42).build();
-	}
-
-}
