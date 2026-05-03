@@ -1,3 +1,8 @@
+
+```
+
+
+```java
 /*
  * Copyright 2012-2017 the original author or authors.
  *
@@ -16,16 +21,46 @@
 
 package sample.actuator;
 
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.ackbar.ResponseStatus;
 
+/**
+ * Example custom Spring Boot actuator health indicator.
+ *
+ * @since 3.0
+ */
 @Component
 public class ExampleHealthIndicator implements HealthIndicator {
 
+	private final String counter;
+
+	/**
+	 * Inject the counter value.
+	 *
+	 * @param counter the counter value
+	 */
+	@Autowired
+	public ExampleHealthIndicator(final @Nonnull String counter) {
+		this.counter = counter;
+	}
+
 	@Override
 	public Health health() {
-		return Health.up().withDetail("counter", 42).build();
+		return Health.up().withDetail("counter", counter).build();
 	}
 
 }
+```
