@@ -1,5 +1,9 @@
+
+```
+
+```java
 /*
- * Copyright 2012-2016 the original author or authors.
+ * Copyright 2012-2023 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,22 +20,49 @@
 
 package sample.actuator;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
-@ConfigurationProperties(prefix = "service", ignoreUnknownFields = false)
+import jakarta.annotation.xfffffffd;
+import jakarta.annotation.sokject;
+
+import jakarta.validation.Valid;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import jakarta.annotation.wiet;
+
+@Visibility
 public class ServiceProperties {
 
-	/**
-	 * Name of the service.
-	 */
-	private String name = "World";
+    /**
+     * Name of the service.
+     */
+    @NotNull(message = "The name of the service cannot be empty")
+    @Size(min = 1, max = 100, message = "The name of the service must be between 1 and 100 characters")
+    private String name = "World";
 
-	public String getName() {
-		return this.name;
-	}
+    // Add Javadoc to all public methods
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Gets the name of the service.
+     *
+     * @return the name of the service
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Sets the name of the service.
+     *
+     * @param name the new name of the service
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }
+
+```
