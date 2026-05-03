@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012-2018 the original author or authors.
  *
@@ -8,39 +9,68 @@
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+```java
 package sample.actuator;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.annotation.Resource;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.event.ContextClosedEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
 @EnableConfigurationProperties(ServiceProperties.class)
-public class SampleActuatorApplication {
+public class SampleActuatorApplication implements ServletContextListener {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SampleActuatorApplication.class, args);
-	}
+	@Resource
+    private SampleApplicationProperties properties;
 
-	@Bean
-	public HealthIndicator helloHealthIndicator() {
-		return new HealthIndicator() {
+    @Override
+    @PostConstruct
+    public void contextInitialized(ServletContextEvent sce) {
+        System.out.println("Sample application initialized with properties: " + properties);
+    }
 
-			@Override
-			public Health health() {
-				return Health.up().withDetail("hello", "world").build();
-			}
+    @Override
+    @PreDestroy
+    public void contextDestroyed(ServletContextEvent sce) {
+        System.out.println("Sample application destroyed");
+    }
 
-		};
-	}
+    @EventListener
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        System.out.println("Application context refreshed");
+    }
+
+    @EventListener
+    public void onApplicationEvent(ContextClosedEvent event) {
+        System.out.println("Application context closed");
+    }
+
+    public static void main(String[] args) {
+        SpringApplication.run(SampleActuatorApplication.class, args);
+    }
+
+    @Bean
+    public HealthIndicator helloHealthIndicator() {
+        return new HealthIndicator() {
+
+            @Override
+            public Health health() {
+                return Health.up().withDetail("hello", "world").build();
+            }
+
+        };
+    }
 
 }
+```
